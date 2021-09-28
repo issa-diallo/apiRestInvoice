@@ -11,30 +11,30 @@ class CustomerTest extends TestCase
     {
         $customer = new Customer();
 
-        $customer->setFirstname("firstname")
-            ->setLastName("lastname")
-            ->setEmail("customer@test.com")
-            ->setCompany("company");
+        $customer->setFirstname('firstname')
+            ->setLastName('lastname')
+            ->setEmail('customer@test.com')
+            ->setCompany('company');
 
-        $this->assertTrue($customer->getFirstname() === "firstname");
-        $this->assertTrue($customer->getLastname() === "lastname");
-        $this->assertTrue($customer->getEmail() === "customer@test.com");
-        $this->assertTrue($customer->getCompany() === "company");
+        $this->assertTrue('firstname' === $customer->getFirstname());
+        $this->assertTrue('lastname' === $customer->getLastname());
+        $this->assertTrue('customer@test.com' === $customer->getEmail());
+        $this->assertTrue('company' === $customer->getCompany());
     }
 
     public function testIsFalse(): void
     {
         $customer = new Customer();
 
-        $customer->setFirstname("firstname")
-            ->setLastName("lastname")
-            ->setEmail("customer@test.com")
-            ->setCompany("company");
+        $customer->setFirstname('firstname')
+            ->setLastName('lastname')
+            ->setEmail('customer@test.com')
+            ->setCompany('company');
 
-        $this->assertFalse($customer->getFirstname() === "false");
-        $this->assertFalse($customer->getLastname() === "false");
-        $this->assertFalse($customer->getEmail() === "false@test.com");
-        $this->assertFalse($customer->getCompany() === "false");
+        $this->assertFalse('false' === $customer->getFirstname());
+        $this->assertFalse('false' === $customer->getLastname());
+        $this->assertFalse('false@test.com' === $customer->getEmail());
+        $this->assertFalse('false' === $customer->getCompany());
     }
 
     public function testIsEmpty(): void
