@@ -19,4 +19,4 @@ Creation of an apiRest for the invoice application that will allow users to mana
 > **If you want to run:** php ./vendor/bin/grumphp run
 
 ## Start Tests
-- symfony console 
+- ./vendor/bin/phpunit --testdox 
