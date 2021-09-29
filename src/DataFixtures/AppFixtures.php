@@ -45,7 +45,8 @@ class AppFixtures extends Fixture
                 $customer->setFirstname($faker->firstName())
                     ->setLastname($faker->lastName())
                     ->setEmail($faker->email())
-                    ->setCompany($faker->company());
+                    ->setCompany($faker->company())
+                    ->setUser($user);
 
                 $manager->persist($customer);
 
