@@ -2,15 +2,22 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use App\Repository\CustomerRepository;
-use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Repository\CustomerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
- * @ApiResource()
+ * @ApiResource(
+ * attributes={"pagination_enabled"=true}
+ * )
+ * @ApiFilter(SearchFilter::class,properties={"firstname":"partial","lastname":"partial"})
+ * @ApiFilter(OrderFilter::class,properties={"lastname"})
  */
 class Customer
 {
