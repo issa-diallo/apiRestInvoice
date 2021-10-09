@@ -71,6 +71,33 @@ class Customer
     {
         $this->invoices = new ArrayCollection();
     }
+    
+
+    /**
+     * Return the Total invoice
+     * @Groups({"customers_read"})
+     * @return float
+     */
+    public function getTotalAmount(): float
+    {
+      $listInvoice = $this->invoices->toArray();
+
+      return array_reduce($listInvoice,function($total,$invoice){
+        return $total + $invoice->getAmount();
+      },0);
+    }
+    
+    /**
+     * Return the total invoice amount no paid
+     * @Groups({"customers_read"})
+     * @return float
+     */
+    public function getUnpaidAmount(): float
+    {
+      return array_reduce($this->invoices->toArray(),function($total,$invoice){
+        return $total + ($invoice->getStatus() === "PAID" || $invoice->getStatus() === "CANCELLED" ? 0 : $invoice->getAmount());
+      },0);
+    }
 
     public function getId(): ?int
     {
