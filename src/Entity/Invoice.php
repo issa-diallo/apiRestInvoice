@@ -12,6 +12,11 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 /**
  * @ORM\Entity(repositoryClass=InvoiceRepository::class)
  * @ApiResource(
+ * subresourceOperations={
+ *  "api_customers_invoices_get_subresource"={
+ *  "normalization_context"={"groups"={"invoices_subresource"}}
+ *  }
+ * },
  * normalizationContext={"groups"={"invoices_read"}},
  * attributes={
  *      "pagination_enabled"=true,
@@ -32,19 +37,19 @@ class Invoice
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"customers_read","invoices_read"})
+     * @Groups({"customers_read","invoices_read","invoices_subresource"})
      */
     private $amount;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"customers_read","invoices_read"})
+     * @Groups({"customers_read","invoices_read","invoices_subresource"})
      */
     private $sentAt;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"customers_read","invoices_read"})
+     * @Groups({"customers_read","invoices_read","invoices_subresource"})
      */
     private $status;
 
@@ -57,7 +62,7 @@ class Invoice
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"customers_read","invoices_read"})
+     * @Groups({"customers_read","invoices_read","invoices_subresource"})
      */
     private $chrono;
 
