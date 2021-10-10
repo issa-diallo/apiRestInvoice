@@ -15,7 +15,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ApiResource()
+ * @ApiResource(
+ * normalizationContext={"groups"={"users_read"}},
+ * )
  * @UniqueEntity("email")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -33,6 +35,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\Email(
      *    message = "The email '{{ value }}' is not a valid email."
      * )
+     * @Groups({"users_read"})
      */
     private $email;
 
@@ -50,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"customers_read","invoices_read"})
+     * @Groups({"customers_read","invoices_read","users_read"})
      * @Assert\NotBlank
      * @Assert\Length(
      *      min = 3,
@@ -63,7 +66,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"customers_read","invoices_read"})
+     * @Groups({"customers_read","invoices_read","users_read"})
      * @Assert\NotBlank
      * @Assert\Length(
      *      min = 3,
