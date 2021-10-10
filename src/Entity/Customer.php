@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
@@ -35,18 +36,36 @@ class Customer
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"customers_read","invoices_read"})
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 30,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"customers_read","invoices_read"})
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 30,
+     *      minMessage = "Your last name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your last name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"customers_read","invoices_read"})
+     * @Assert\NotBlank
+     * @Assert\Email(
+     *    message = "The email '{{ value }}' is not a valid email."
+     * )
      */
     private $email;
 
@@ -66,6 +85,7 @@ class Customer
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="customers")
      * @Groups({"customers_read","invoices_read"})
+     * @Assert\NotBlank
      */
     private $user;
 

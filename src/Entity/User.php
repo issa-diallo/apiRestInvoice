@@ -10,10 +10,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ApiResource()
+ * @UniqueEntity("email")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -26,6 +29,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Email(
+     *    message = "The email '{{ value }}' is not a valid email."
+     * )
      */
     private $email;
 
@@ -37,18 +44,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"customers_read","invoices_read"})
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 30,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"customers_read","invoices_read"})
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 30,
+     *      minMessage = "Your last name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your last name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $lastname;
 
