@@ -22,7 +22,7 @@ jobs:
       run: composer install
 
     - name: Run phpstan
-      run: ./vendor/bin/phpstan analyse src --level 3
+      run: ./vendor/bin/phpstan analyse src --level 1
 
 
 
