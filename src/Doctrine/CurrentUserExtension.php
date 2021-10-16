@@ -56,7 +56,7 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
       /**
        * filtered only for the connected user
        */
-      if ((Customer::class === $resourceClass || Invoice::class === $resourceClass) && !$this->checker->isGranted('ROLE_ADMIN') ) {
+      if ((Customer::class === $resourceClass || Invoice::class === $resourceClass) && !$this->checker->isGranted('ROLE_ADMIN') && $user instanceof User ) {
         $rootAlias = $queryBuilder->getRootAliases()[0];
 
         if (Customer::class === $resourceClass) {
